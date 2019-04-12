@@ -1,0 +1,78 @@
+<html>
+<head>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i|IBM+Plex+Sans+Condensed:400,400i|IBM+Plex+Sans:100,100i,400,400i,700,700i|IBM+Plex+Serif:400,400i" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Stylesheets -->
+    <style>
+
+        body {
+            background-color: darkslategrey;
+            font-family: 'IBM Plex Sans', sans-serif;
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        textarea {
+            resize: none;
+        }
+    </style>
+
+    <!-- Scripting -->
+    <script>
+
+        $(document).ready(function () {
+
+            $("#input-text").on('input', function (e) {
+                $("#html-display").empty();
+                $("#html-display").append($("#input-text").val());
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <!--
+    <header class="mdc-top-app-bar mdc-top-app-bar--dense">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+                <span class="mdc-top-app-bar__title">Title</span>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Download">file_download</a>
+                <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Print this page">print</a>
+                <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Bookmark this page">bookmark</a>
+            </section>
+        </div>
+    </header>
+        -->
+
+    <div style="height: 100%">
+
+        <div style="display: flex; flex-direction: row; padding: 15px; padding-top: 65px; height: 90%">
+            <div class="" style="flex: 1; background-color: white;">
+                <textarea id="input-text" rows="8" cols="40" aria-label="Nymblr" style="width: 100%; height: 100%; font-family: Courier New, Courier, monospace"></textarea>
+            </div>
+            <div style="width:15px"></div>
+            <div style="flex: 2; background-color: white">
+                <div id="html-display"></div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<!-- terebi kara kon'nichiha! -->
