@@ -9,3 +9,8 @@ def home():
     return render_template(
         'editor.htm'
         )
+
+@app.route('/update', methods=['POST'])
+def update():
+    text =  request.form['text'];
+    return text

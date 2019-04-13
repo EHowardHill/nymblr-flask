@@ -1,7 +1,12 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <!-- Meta -->
+    <title>Nymblr</title>
+    <meta name="viewport" content="width=device-width" />
+
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
@@ -12,18 +17,33 @@
     <!-- Stylesheets -->
     <style>
 
+        html {
+            margin: 0;
+            height: 100%;
+        }
+
         body {
-            background-color: darkslategrey;
+            background: linear-gradient(slateblue, darkorchid);
             font-family: 'IBM Plex Sans', sans-serif;
             width: 100%;
             height: 100%;
             margin: 0px;
             padding: 0px;
+            display: flex;
+            flex-flow: column;
         }
 
         textarea {
             resize: none;
         }
+
+        .io-box {
+            display: flex;
+            flex-direction: row;
+            padding: 15px;
+            height: 100%;
+        }
+
     </style>
 
     <!-- Scripting -->
@@ -33,7 +53,56 @@
 
             $("#input-text").on('input', function (e) {
                 $("#html-display").empty();
-                $("#html-display").append($("#input-text").val());
+
+                var style = "font-family: Courier New, Courier, monospace;" // Part of FLAGS bit
+                var texts = $("#input-text").val().split(/\r?\n/);
+                var lines = [];
+                var skipp = false;
+                var html = "";
+
+                texts.forEach(function (entry) {
+
+                    // * * * // This will be a part of the FLAGS bit
+
+                    // If new line
+                    if (entry.length == 0) {
+                        skipp = false;
+                    } else {
+                        // If INT
+                        if (entry.substring(0, 4).toUpperCase() == "INT.") {
+                            lines.push(
+                                "<p style='font-weight: bold;" +
+                                style + "'>" + entry.toUpperCase() + "</p>\n");
+                        }
+
+                        else if (entry == entry.toUpperCase()) {
+                            lines.push(
+                                "<p style='text-align: center; font-weight: bold;" +
+                                style + "'>" + entry.toUpperCase() + "</p>\n");
+                            skipp = true;
+                        }
+
+                        // Default
+                        else if (entry.length > 0) {
+                            if (skipp == true) {
+                                lines.push("<p style='" +
+                                    style + " padding-left: 2cm; padding-right: 2cm;'> " + entry + "</p>\n");
+                            } else {
+                                lines.push("<p style='" +
+                                    style + " padding-left: 0cm; padding-right: 0cm;'> " + entry + "</p>\n");
+                            }
+                        }
+                    }
+
+                    // * * * //
+
+                });
+
+                lines.forEach(function (entry) {
+                    html += entry;
+                });
+
+                document.getElementById("html-display").innerHTML = html;
             });
         });
 
@@ -42,35 +111,41 @@
 
 <body>
 
-    <!--
-    <header class="mdc-top-app-bar mdc-top-app-bar--dense">
-        <div class="mdc-top-app-bar__row">
-            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
-                <span class="mdc-top-app-bar__title">Title</span>
-            </section>
-            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Download">file_download</a>
-                <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Print this page">print</a>
-                <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="Bookmark this page">bookmark</a>
-            </section>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+
+        <form class="form-inline">
+
+            <!-- Font choice -->
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Editor Font
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </form>
+
+        <!-- -->
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <!-- Display box -->
+    <div class="io-box">
+        <div style="flex: 1; background-color: white;">
+            <textarea id="input-text" rows="8" cols="40" aria-label="Nymblr" style="width: 100%; height: 100%;"></textarea>
         </div>
-    </header>
-        -->
-
-    <div style="height: 100%">
-
-        <div style="display: flex; flex-direction: row; padding: 15px; padding-top: 65px; height: 90%">
-            <div class="" style="flex: 1; background-color: white;">
-                <textarea id="input-text" rows="8" cols="40" aria-label="Nymblr" style="width: 100%; height: 100%; font-family: Courier New, Courier, monospace"></textarea>
-            </div>
-            <div style="width:15px"></div>
-            <div style="flex: 2; background-color: white">
-                <div id="html-display"></div>
-            </div>
+        <div style="width:15px"></div>
+        <div style="flex: 2; background-color: white">
+            <div id="html-display"></div>
         </div>
     </div>
-
 
 </body>
 </html>
