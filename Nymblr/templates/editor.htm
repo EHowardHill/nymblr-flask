@@ -44,6 +44,17 @@
             height: 100%;
         }
 
+        .note-box {
+            height: 25px;
+            background-color: black;
+            text-align: center;
+        }
+
+        .spaced {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
     </style>
 
     <!-- Scripting -->
@@ -51,6 +62,21 @@
 
         $(document).ready(function () {
 
+            $('#file-save').click(function (e) {
+                $.post("/save", function (data) {
+                    alert("Yeah!");
+                });
+            });
+
+            $('#file-exprt').click(function (e) {
+                e.preventDefault();
+            });
+
+            $('#file-print').click(function (e) {
+                e.preventDefault();
+            });
+
+            // Text Processing
             $("#input-text").on('input', function (e) {
                 $("#html-display").empty();
 
@@ -114,26 +140,29 @@
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-dark">
 
-        <form class="form-inline">
+        <div class="form-inline">
+
+            <!-- Open/Save -->
+            <button id="file-save" class="btn btn-primary spaced" type="submit">Save</button>
 
             <!-- Font choice -->
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary spaced dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Editor Font
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">Serif</a>
+                    <a class="dropdown-item" href="#">Sans-Serif</a>
+                    <a class="dropdown-item" href="#">Monospace</a>
                 </div>
             </div>
-        </form>
+        </div>
 
-        <!-- -->
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <!-- Finalize -->
+        <div class="form-inline">
+            <button id="file-exprt" class="btn btn-primary spaced" type="submit">Export</button>
+            <button id="file-print" class="btn btn-primary spaced" type="submit">Print</button>
+        </div>
     </nav>
 
     <!-- Display box -->
@@ -145,6 +174,11 @@
         <div style="flex: 2; background-color: white">
             <div id="html-display"></div>
         </div>
+    </div>
+
+    <!-- Notebox -->
+    <div class="note-box">
+        Nymblr Fountain Editor - 2019 E. Howard Hill
     </div>
 
 </body>
